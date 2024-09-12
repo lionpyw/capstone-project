@@ -1,7 +1,7 @@
 *.pyc
 */migrations/
 /media/
-/venvcap/
 db.sqlite3
 /static/
 make_static.py
+/venv/
