@@ -1,4 +1,3 @@
-import common
 from .common import *
 
 # Quick-start development settings - unsuitable for production
@@ -21,7 +20,7 @@ ALLOWED_HOSTS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(FRONT_DIR, 'dist')],
+        'DIRS': [FRONT_DIR / 'dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

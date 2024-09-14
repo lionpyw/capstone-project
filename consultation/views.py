@@ -8,7 +8,8 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .permissions import *
 from .models import *
 from .serializers import *
-from .dyte_api_client import DyteAPIClient
+from .dyte_api_client import DyteAPIClient, DYTE_ORG_PRESET_NAME, DYTE_ORG_PRESET_NAME_CL
+from decouple import config
 
 User=get_user_model()
 
@@ -161,7 +162,7 @@ class LiveVideoRequestViewSet(viewsets.ModelViewSet):
             participant = DyteAPIClient.add_participant(
                 dyte_meeting["id"],
                 consultant.consultant.last_name,
-                settings.DYTE_ORG_PRESET_NAME,
+                DYTE_ORG_PRESET_NAME,
                 custom_participant_id=consultant.consultant.username,
             )
             live_request = LiveVideoRequest.objects.create(
@@ -197,7 +198,7 @@ class LiveVideoRequestViewSet(viewsets.ModelViewSet):
         participant = DyteAPIClient.add_participant(
             live_request.dyte_meeting_id,
             live_request.consultant.consultant.last_name,
-            settings.DYTE_ORG_PRESET_NAME,
+            DYTE_ORG_PRESET_NAME,
             "1",
         )
         live_request.consultant_meeting_id = participant["id"]
@@ -221,7 +222,7 @@ class LiveVideoRequestViewSet(viewsets.ModelViewSet):
         participant = DyteAPIClient.add_participant(
             live_request.dyte_meeting_id,
             "Client",
-            settings.DYTE_ORG_PRESET_NAME_CL,
+            DYTE_ORG_PRESET_NAME_CL,
             "client1",
         )
         client_meeting_id = participant["id"]

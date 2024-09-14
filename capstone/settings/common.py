@@ -7,10 +7,9 @@ import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-
-FRONT_DIR = os.path.join(BASE_DIR, 'cap-frontend')
+FRONT_DIR = BASE_DIR / 'cap-frontend'
 
 
 INSTALLED_APPS = [
@@ -103,7 +102,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    os.path.join(FRONT_DIR, 'dist/assets')
+    FRONT_DIR / 'dist/assets'
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 

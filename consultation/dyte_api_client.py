@@ -11,6 +11,11 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 session = requests.Session()
 session.auth = ( env("DYTE_ORG_ID"), env("DYTE_API_KEY") )
 
+DYTE_ORG_PRESET_NAME = "group_call_host"
+
+DYTE_ORG_PRESET_NAME_CL = "group_call_participant"
+
+
 class DyteAPIClient(object):
     def __init__(self):
         pass

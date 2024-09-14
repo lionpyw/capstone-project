@@ -1,4 +1,3 @@
-import common
 from .common import *
 
 
@@ -7,13 +6,14 @@ SECRET_KEY = config("SECRET_KEY", cast=str)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
 ]
 
-# Application definition
 
+# Application definition
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -36,10 +36,10 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 
 DATABASE_URL = config("DATABASE_URL", default="", cast=str)
 
+
 DATABASES = {
     'default':dj_database_url.config(default=DATABASE_URL)
 }
-
 
 
 SIMPLE_JWT = {
@@ -48,10 +48,6 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
     'AUTH_COOKIE': 'Authorization',
 }
-
-
-DYTE_ORG_PRESET_NAME = "group_call_host"
-DYTE_ORG_PRESET_NAME_CL="group_call_participant"
 
 
 CELERY_BROKER_URL = 'redis://redis:6379/1'
@@ -67,8 +63,8 @@ CACHES = {
 }
 
 
-EMAIL_HOST = 'smtp4dev'
+EMAIL_HOST = config('EMAIL_HOST', default="")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
-EMAIL_PORT = 2525
+EMAIL_PORT = config('EMAIL_PORT', default="")
 
