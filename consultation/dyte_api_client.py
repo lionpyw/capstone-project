@@ -2,7 +2,7 @@ from urllib.parse import urljoin
 import requests
 import os
 import environ
-from capstone.settings import BASE_DIR
+from capstone.settings.settings import BASE_DIR
 
 
 env = environ.Env()

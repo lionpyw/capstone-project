@@ -163,3 +163,5 @@ db.sqlite3
 /static/
 make_static.py
 /venv/
+etc/
+.env.dev
