@@ -52,10 +52,12 @@ SIMPLE_JWT = {
 
 CELERY_BROKER_URL = 'redis://redis:6379/1'
 
+CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/2",
+        "LOCATION": "redis://redis:6379/3",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }

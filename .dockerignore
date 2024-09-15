@@ -1,0 +1,11 @@
+
+venv/
+
+.env
+.env.dev
+.env.prod
+etc/
+
+db.sqlite3
+.gitignore
+README.md
