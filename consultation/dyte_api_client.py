@@ -2,7 +2,7 @@ from urllib.parse import urljoin
 import requests
 import os
 import environ
-from capstone.settings import BASE_DIR
+from capstone.settings.settings import BASE_DIR
 
 
 env = environ.Env()
@@ -10,6 +10,11 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 session = requests.Session()
 session.auth = ( env("DYTE_ORG_ID"), env("DYTE_API_KEY") )
+
+DYTE_ORG_PRESET_NAME = "group_call_host"
+
+DYTE_ORG_PRESET_NAME_CL = "group_call_participant"
+
 
 class DyteAPIClient(object):
     def __init__(self):

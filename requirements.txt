@@ -14,5 +14,8 @@ flower
 django-redis
 whitenoise
 gunicorn
-psycopg
-psycopg2
+psycopg[binary]
+psycopg2-binary
+python-decouple
+dj_database_url
+django-environ
