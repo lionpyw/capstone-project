@@ -10,6 +10,10 @@ services:
       - ./.env.dev
     depends_on:
       - postgres
+  frontend:
+        build: ./cap-frontend/
+        ports:
+            - "5173:5173"
   postgres:
     image: postgres
     volumes:
@@ -20,10 +24,13 @@ services:
       - POSTGRES_DB=consultation
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=asd
-  frontend:
-        build: ./cap-frontend/
-        ports:
-            - "5173:5173"
-
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    restart: always
+    volumes:
+      - redisdata:/data
 volumes:
   postgres_data:
+  redisdata:
