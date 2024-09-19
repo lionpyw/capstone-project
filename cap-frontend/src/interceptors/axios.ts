@@ -5,9 +5,9 @@ import { getCookie } from 'typescript-cookie';
 let refresh = false
 
 if (import.meta.env.PROD) {
-    axios.defaults.baseURL =  'http://localhost'
+    axios.defaults.baseURL =  import.meta.env.VITE_BASE_URL || 'http://localhost'
 } else {
-    axios.defaults.baseURL =  import.meta.env.VITE_BASE_URL || 'http://localhost:8000/'
+    axios.defaults.baseURL =  'http://localhost:8000/'
 }
  
 

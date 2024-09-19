@@ -74,6 +74,26 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+WSGI_APPLICATION = 'capstone.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+if not config("PROD", cast=bool):
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+    }
+else:
+    DATABASE_URL = config("DATABASE_URL_local", default="", cast=str)
+    DATABASES = {
+        'default':dj_database_url.config(default=DATABASE_URL)
+    }
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 

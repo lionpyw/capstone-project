@@ -34,24 +34,6 @@ TEMPLATES = [
 ]
 
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
-# DATABASE_URL = config("DATABASE_URL_local", default="", cast=str)
-# DATABASES = {
-#     'default':dj_database_url.config(default=DATABASE_URL)
-# }
-
-
 SIMPLE_JWT = {
     "AUTH_HEADER_NAME": "HTTP_COOKIE",
     'AUTH_HEADER_TYPES': ('JWT',),

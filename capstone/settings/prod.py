@@ -31,16 +31,6 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'capstone.wsgi.application'
-
-
-DATABASE_URL = config("DATABASE_URL", default="", cast=str)
-
-DATABASES = {
-    'default':dj_database_url.config(default=DATABASE_URL)
-}
-
-
 SIMPLE_JWT = {
     "AUTH_HEADER_NAME": "HTTP_COOKIE",
     'AUTH_HEADER_TYPES': ('JWT',),
