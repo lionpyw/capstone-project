@@ -1,4 +1,4 @@
-import os
+import os, json
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
@@ -46,24 +46,13 @@ INTERNAL_IPS = [
     # ...
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://localhost:3000',
-    'http://127.0.0.1:3000'
-]
+CORS_ALLOWED_ORIGINS = json.loads(config("CORS_ALLOWED_ORIGINS", cast=str))
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173'
-]
+CORS_ORIGIN_WHITELIST = json.loads(config("CORS_ORIGIN_WHITELIST", cast=str))
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173'
-]
+CSRF_TRUSTED_ORIGINS = json.loads(config("CSRF_TRUSTED_ORIGINS", cast=str))
 
 
 # Password validation
@@ -83,6 +72,26 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+WSGI_APPLICATION = 'capstone.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+if not config("PROD", cast=bool):
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+    }
+else:
+    DATABASE_URL = config("DATABASE_URL_local", default="", cast=str)
+    DATABASES = {
+        'default':dj_database_url.config(default=DATABASE_URL)
+    }
 
 
 # Internationalization

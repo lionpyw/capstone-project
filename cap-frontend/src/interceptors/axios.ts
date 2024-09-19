@@ -4,7 +4,12 @@ import { getCookie } from 'typescript-cookie';
 
 let refresh = false
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/'
+if (import.meta.env.PROD) {
+    axios.defaults.baseURL =  import.meta.env.VITE_BASE_URL || 'http://localhost'
+} else {
+    axios.defaults.baseURL =  'http://localhost:8000/'
+}
+ 
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common = {

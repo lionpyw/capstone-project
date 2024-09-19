@@ -9,3 +9,4 @@ etc/
 db.sqlite3
 .gitignore
 README.md
+nginx/

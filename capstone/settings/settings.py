@@ -33,16 +33,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'capstone.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+SIMPLE_JWT = {
+    "AUTH_HEADER_NAME": "HTTP_COOKIE",
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'AUTH_COOKIE': 'Authorization',
 }
-

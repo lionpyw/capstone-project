@@ -4,7 +4,7 @@ from .common import *
 SECRET_KEY = config("SECRET_KEY", cast=str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config("DJANGO_DEBUG", default=False)
 
 
 ALLOWED_HOSTS = [
@@ -31,17 +31,6 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'capstone.wsgi.application'
-
-
-DATABASE_URL = config("DATABASE_URL", default="", cast=str)
-
-
-DATABASES = {
-    'default':dj_database_url.config(default=DATABASE_URL)
-}
-
-
 SIMPLE_JWT = {
     "AUTH_HEADER_NAME": "HTTP_COOKIE",
     'AUTH_HEADER_TYPES': ('JWT',),
@@ -52,7 +41,7 @@ SIMPLE_JWT = {
 
 CELERY_BROKER_URL = 'redis://redis:6379/1'
 
-CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
+CELERY_RESULT_BACKEND = "redis://redis:6379/2"
 
 CACHES = {
     "default": {
