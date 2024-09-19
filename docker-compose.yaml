@@ -13,6 +13,14 @@ services:
       - ./.env.dev
     depends_on:
       - postgres
+  frontend:
+    build:
+      context: ./cap-frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_BASE_URL=http://localhost/api/
+    volumes:
+      - react_build:/frontend_src/dist
   postgres:
     image: postgres
     container_name: postgres
@@ -31,14 +39,17 @@ services:
   nginx:
     build: ./nginx/
     volumes:
+      - react_build:/var/www/react
       - static_volume:/home/app/web/static
       - media_volume:/home/app/web/media
     ports:
       - 80:80
     depends_on:
       - web
+      - frontend
 volumes:
   postgres_data:
   redisdata:
   static_volume:
   media_volume:
+  react_build:

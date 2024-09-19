@@ -22,14 +22,14 @@ from django.views.generic import TemplateView
 from core.views import TokenCookieDeleteView, TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("consult/", include("consultation.urls")),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
-    path('api/token/delete/', TokenCookieDeleteView.as_view(), name='token_delete'),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('', TemplateView.as_view(template_name='index.html'))
+    path('api/admin/', admin.site.urls),
+    path("api/consult/", include("consultation.urls")),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')),
+    path('api/api/token/delete/', TokenCookieDeleteView.as_view(), name='token_delete'),
+    path('api/api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/index/', TemplateView.as_view(template_name='index.html'))
 ]
 
 if settings.DEBUG:

@@ -8,6 +8,10 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5173
+ARG VITE_BASE_URL
 
-CMD [ "npm", "run", "dev" ]
+RUN npm run build
+
+RUN ls | grep -P "^[^d]" | xargs -d "\n" rm -rf
+
+CMD ls | xargs echo
