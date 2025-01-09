@@ -6,6 +6,7 @@ from . import models
 admin.site.site_header = "Consultation Network Admin"
 admin.site.index_title = "Admin"
 
+
 @admin.register(models.User)
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
@@ -27,9 +28,19 @@ class UserAdmin(BaseUserAdmin):
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'email',
-                        'first_name', 'last_name',"is_service_provider"),
-        }),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "username",
+                    "password1",
+                    "password2",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "is_service_provider",
+                ),
+            },
+        ),
     )

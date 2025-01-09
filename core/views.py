@@ -14,14 +14,13 @@ from rest_framework_simplejwt.authentication import AUTH_HEADER_TYPES
 from .settings import api_settings
 
 
-
 class TokenViewBase(generics.GenericAPIView):
     permission_classes = ()
     authentication_classes = ()
 
     serializer_class = None
 
-    www_authenticate_realm = 'api'
+    www_authenticate_realm = "api"
 
     def get_authenticate_header(self, request):
         return '{0} realm="{1}"'.format(
@@ -37,16 +36,21 @@ class TokenViewBase(generics.GenericAPIView):
         except TokenError as e:
             raise InvalidToken(e.args[0])
 
-        response = Response(serializer.validated_data, status=status.HTTP_200_OK)
+        response = Response(
+            serializer.validated_data, status=status.HTTP_200_OK
+        )
 
         if api_settings.AUTH_COOKIE:
             csrf.get_token(self.request)
-            response = self.set_auth_cookies(response, serializer.validated_data)
+            response = self.set_auth_cookies(
+                response, serializer.validated_data
+            )
 
         return response
 
     def set_auth_cookies(self, response, data):
         return response
+
 
 class TokenRefreshViewBase(TokenViewBase):
     def extract_token_from_cookie(self, request):
@@ -57,23 +61,31 @@ class TokenRefreshViewBase(TokenViewBase):
             request = self.extract_token_from_cookie(request)
         return super().post(request, *args, **kwargs)
 
+
 class TokenCookieViewMixin:
-    token_refresh_view_name = 'token_refresh'
+    token_refresh_view_name = "token_refresh"
 
     def extract_token_from_cookie(self, request):
         """Extracts token from cookie and sets it in request.data as it would be sent by the user"""
         if not request.data:
-            token = request.COOKIES.get('{}_refresh'.format(api_settings.AUTH_COOKIE))
+            token = request.COOKIES.get(
+                "{}_refresh".format(api_settings.AUTH_COOKIE)
+            )
             if not token:
-                raise NotAuthenticated(detail=_('Refresh cookie not set. Try to authenticate first.'))
+                raise NotAuthenticated(
+                    detail=_(
+                        "Refresh cookie not set. Try to authenticate first."
+                    )
+                )
             else:
-                request.data['refresh'] = token
+                request.data["refresh"] = token
         return request
 
     def set_auth_cookies(self, response, data):
         expires = self.get_refresh_token_expiration()
         response.set_cookie(
-            api_settings.AUTH_COOKIE, data['access'],
+            api_settings.AUTH_COOKIE,
+            data["access"],
             expires=expires,
             domain=api_settings.AUTH_COOKIE_DOMAIN,
             path=api_settings.AUTH_COOKIE_PATH,
@@ -81,15 +93,16 @@ class TokenCookieViewMixin:
             httponly=True,
             samesite=api_settings.AUTH_COOKIE_SAMESITE,
         )
-        if 'refresh' in data:
+        if "refresh" in data:
             response.set_cookie(
-                '{}_refresh'.format(api_settings.AUTH_COOKIE), data['refresh'],
+                "{}_refresh".format(api_settings.AUTH_COOKIE),
+                data["refresh"],
                 expires=expires,
                 domain=None,
                 path=reverse(self.token_refresh_view_name),
                 secure=api_settings.AUTH_COOKIE_SECURE or None,
                 httponly=True,
-                samesite='Strict',
+                samesite="Strict",
             )
         return response
 
@@ -102,6 +115,7 @@ class TokenObtainPairView(TokenCookieViewMixin, TokenViewBase):
     Takes a set of user credentials and returns an access and refresh JSON web
     token pair to prove the authentication of those credentials.
     """
+
     serializer_class = serializers.TokenObtainPairSerializer
 
 
@@ -113,23 +127,26 @@ class TokenRefreshView(TokenCookieViewMixin, TokenRefreshViewBase):
     Takes a refresh type JSON web token and returns an access type JSON web
     token if the refresh token is valid.
     """
+
     serializer_class = serializers.TokenRefreshSerializer
 
     def get_refresh_token_expiration(self):
         if api_settings.ROTATE_REFRESH_TOKENS:
             return super().get_refresh_token_expiration()
-        token = RefreshToken(self.request.data['refresh'])
-        return datetime.fromtimestamp(token.payload['exp'])
+        token = RefreshToken(self.request.data["refresh"])
+        return datetime.fromtimestamp(token.payload["exp"])
 
 
 token_refresh = TokenRefreshView.as_view()
+
 
 class TokenCookieDeleteView(APIView):
     """
     Deletes httpOnly auth cookies.
     Used as logout view while using AUTH_COOKIE
     """
-    token_refresh_view_name = 'token_refresh'
+
+    token_refresh_view_name = "token_refresh"
     authentication_classes = ()
     permission_classes = ()
 
@@ -145,10 +162,10 @@ class TokenCookieDeleteView(APIView):
         response.delete_cookie(
             api_settings.AUTH_COOKIE,
             domain=api_settings.AUTH_COOKIE_DOMAIN,
-            path=api_settings.AUTH_COOKIE_PATH
+            path=api_settings.AUTH_COOKIE_PATH,
         )
         response.delete_cookie(
-            '{}_refresh'.format(api_settings.AUTH_COOKIE),
+            "{}_refresh".format(api_settings.AUTH_COOKIE),
             domain=None,
             path=reverse(self.token_refresh_view_name),
         )

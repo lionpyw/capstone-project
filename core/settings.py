@@ -39,11 +39,11 @@ DEFAULTS = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
     "CHECK_REVOKE_TOKEN": False,
     "REVOKE_TOKEN_CLAIM": "hash_password",
-    'AUTH_COOKIE': None,
-    'AUTH_COOKIE_DOMAIN': None,
-    'AUTH_COOKIE_SECURE': False,
-    'AUTH_COOKIE_PATH': '/',
-    'AUTH_COOKIE_SAMESITE': 'Lax',
+    "AUTH_COOKIE": None,
+    "AUTH_COOKIE_DOMAIN": None,
+    "AUTH_COOKIE_SECURE": False,
+    "AUTH_COOKIE_PATH": "/",
+    "AUTH_COOKIE_SAMESITE": "Lax",
 }
 
 
@@ -53,7 +53,6 @@ IMPORT_STRINGS = (
     "TOKEN_USER_CLASS",
     "USER_AUTHENTICATION_RULE",
 )
-
 
 
 api_settings = APISettings(USER_SETTINGS, DEFAULTS, IMPORT_STRINGS)

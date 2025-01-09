@@ -10,8 +10,8 @@ SECRET_KEY = config("SECRET_KEY", cast=str)
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
+    "127.0.0.1",
+    "localhost",
 ]
 
 
@@ -19,15 +19,15 @@ ALLOWED_HOSTS = [
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [FRONT_DIR / 'dist'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [FRONT_DIR / "dist"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -36,7 +36,7 @@ TEMPLATES = [
 
 SIMPLE_JWT = {
     "AUTH_HEADER_NAME": "HTTP_COOKIE",
-    'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
-    'AUTH_COOKIE': 'Authorization',
+    "AUTH_HEADER_TYPES": ("JWT",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "AUTH_COOKIE": "Authorization",
 }

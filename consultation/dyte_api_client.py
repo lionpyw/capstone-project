@@ -6,10 +6,10 @@ from capstone.settings.settings import BASE_DIR
 
 
 env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 session = requests.Session()
-session.auth = ( env("DYTE_ORG_ID"), env("DYTE_API_KEY") )
+session.auth = (env("DYTE_ORG_ID"), env("DYTE_API_KEY"))
 
 DYTE_ORG_PRESET_NAME = "group_call_host"
 
@@ -32,9 +32,7 @@ class DyteAPIClient(object):
         return response.json()["data"]
 
     @classmethod
-    def create_meeting(
-        cls, title: str, record_on_start: bool
-    ) -> dict:
+    def create_meeting(cls, title: str, record_on_start: bool) -> dict:
         data = {
             "title": title,
             "preferred_region": "ap-south-1",
@@ -49,7 +47,11 @@ class DyteAPIClient(object):
 
     @classmethod
     def add_participant(
-        cls, meeting_id: str, name: str, preset_name: str, custom_participant_id: str
+        cls,
+        meeting_id: str,
+        name: str,
+        preset_name: str,
+        custom_participant_id: str,
     ) -> dict:
         data = {
             "name": name,
@@ -64,7 +66,9 @@ class DyteAPIClient(object):
         return cls._fetch(request)
 
     @classmethod
-    def refresh_participant_token(cls, meeting_id: str, participant_id: str) -> dict:
+    def refresh_participant_token(
+        cls, meeting_id: str, participant_id: str
+    ) -> dict:
         request = requests.Request(
             method="POST",
             url=cls._create_url(
@@ -72,4 +76,3 @@ class DyteAPIClient(object):
             ),
         )
         return cls._fetch(request)
-    

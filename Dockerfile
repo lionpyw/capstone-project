@@ -51,6 +51,12 @@ RUN chmod +x  $APP_HOME/entrypoint.sh
 # copy project
 COPY . $APP_HOME
 
+#
+# Copy the appropriate .env file
+ARG ENVIRONMENT=dev
+COPY .env.${ENVIRONMENT} $APP_HOME
+#
+
 # get react build file
 RUN cd $APP_HOME/cap-frontend/ && ls | grep -P "^[^d]" | xargs -d "\n" rm -rf && cd ..
 

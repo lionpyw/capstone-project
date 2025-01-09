@@ -19,3 +19,7 @@ psycopg2-binary
 python-decouple
 dj_database_url
 django-environ
+eventlet
+rav
+black
+flake8
