@@ -46,11 +46,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
-CORS_ALLOWED_ORIGINS = json.loads(config("CORS_ALLOWED_ORIGINS", cast=str))
-
 CORS_ALLOW_CREDENTIALS = True
-
-CORS_ORIGIN_WHITELIST = json.loads(config("CORS_ORIGIN_WHITELIST", cast=str))
 
 CSRF_TRUSTED_ORIGINS = json.loads(config("CSRF_TRUSTED_ORIGINS", cast=str))
 

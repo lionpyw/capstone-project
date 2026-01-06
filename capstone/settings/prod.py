@@ -12,6 +12,10 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
+CORS_ALLOWED_ORIGINS = json.loads(config("CORS_ALLOWED_ORIGINS", cast=str))
+
+CORS_ORIGIN_WHITELIST = json.loads(config("CORS_ORIGIN_WHITELIST", cast=str))
+
 
 # Application definition
 TEMPLATES = [
